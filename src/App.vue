@@ -1,5 +1,7 @@
 <template>
-  <HelloWorld />
+  <div id="app" class="container">
+     <HelloWorld />
+  </div>
 </template>
 
 <script>
@@ -14,7 +16,5 @@ export default {
 </script>
 
 <style lang="scss">
-
-
 
 </style>

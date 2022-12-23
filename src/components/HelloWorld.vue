@@ -1,81 +1,84 @@
 <template>
-  <div class="">
+  <div class="banner">
     <Header />
     <h1 class="banner__title">они должны что-то знать</h1>
     <div class="">
       <div class="slider banner__wrap-slider">
-          
-
-          <Slider></Slider>
-          
-          <!-- <template>
-            <splide-slide>
-              <item-slider
-                :index="slide.id"
-                :src="slide.src"
-                :text="slide.text"
-              >
-              </item-slider>
-            </splide-slide>
-          </template> -->
-        
-        
-        
-        
+        <!-- <div class="lhsgilahgpiehagop">
+          <img 
+            class="lhsgilahgpiehagop__background" 
+            src="@/assets/pictures/Group 4.png" 
+            alt=""
+          />
+        </div> -->
+        <Slider>
+          <slide 
+            v-for="slide in arraySlide" 
+            :key="slide.id"
+          >
+            <item-slider
+              :src="slide.src"
+              :index="slide.id"
+              :text="slide.text"
+            >
+            </item-slider>
+          </slide>
+        </Slider>
       </div>
-      <!-- <div class="">
-        <router-link 
-          class=""
-          to=""
-        >
-        Искать промокод
-        <img 
-          class="" 
-          src="@/assets/icons/Arrow.svg" 
-          alt=""
-        >
-        </router-link>
-      </div> -->
-    </div>
+      <router-link 
+        class="banner__search-link"
+        to=""
+      >
+      Искать промокод
+      <img 
+        class="banner__search-arrow" 
+        src="@/assets/icons/Arrow.svg" 
+        alt=""
+      >
+      </router-link>
 
+    </div>
+    
   </div>
 </template>
 
 <script>
   import Header from '@/components/layout/Header.vue';
-  import { Splide } from '@splidejs/splide';
-  import Slider from '@/components/Slider.vue';
   import ItemSlider from './itemSlider.vue';
+  import Slider from '@/components/Slider.vue';
+
+  import  { Slide } from 'hooper';
 
   export default {
-    components: { 
-      Slider,
+    components: {
       Header,
-      Splide,
       ItemSlider,
+      Slider,
+      Slide,
+      
     },
 
     data() {
       return {
-        options: {
-          rewind : true,
-          width  : '100%',
-          autoplay: 5000,
-          type   : 'loop',
-          padding: '20%',
-          pagination: true,
-          arrows: true,
-        },
+        // options: {
+        //   rewind : true,
+        //   width  : '100%',
+        //   autoplay: 5000,
+        //   type   : 'loop',
+        //   padding: '20%',
+        //   pagination: true,
+        //   arrows: true,
+        // },
         arraySlide: [
           {
             id: 1,
-            src: './../assets/pictures/racer.png',
-            text: 'Для примера мы показали вам его лицо.  В первой серии он прячется в подвале за мониторами, и пусть борода не собьёт вас с толку. Найдите героя и нажмите  на паузу — ему не терпится отдать вам промокод.'
+            src: require('@/assets/pictures/racer.png'),
+            text: 'Для примера мы показали вам его лицо. В первой серии он прячется в подвале за мониторами, и пусть борода не собьёт вас с толку. Найдите героя и нажмите  на паузу — ему не терпится отдать вам промокод.'
           },
           {
             id: 2,
-            src: '',
-            text: ''
+            src: require('@/assets/pictures/Buschemi.png'),
+            text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam illo esse molestias vitae id quo, dicta earum animi veniam pariatur itaque hic nulla maxime odio necessitatibus nemo, inventore reprehenderit doloremque?'
           },
           {
             id: 3,
@@ -119,13 +122,62 @@
       }
     }
 
-
     &__wrap-slider {
       width: 63%;
       margin: 0 auto;
-      background-color: #FFCC64;
-      height: 300px;
+      background-color: inherit;
+      min-height: 418px;
+    }
+    
+
+    &__search-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 230px;
+      height: 58px;
+      margin: 0 auto;
+
+      font-family: 'kinopoisk-lite';
+      font-size: 15px;
+      line-height: 18px;
+      text-align: center;
+      color: #333333;
+      transition: all 0.3s;
+
+      &:hover {
+        .banner__search-arrow {
+          width: 30px;
+          height: 5px;
+        }
+      }
+    }
+
+    &__search-arrow {
+      margin-left: 20px;
+      width: 26px;
+      height: 3.4px;
     }
   }
+
+  .slider {
+    position: relative;
+  }
+
+  // .lhsgilahgpiehagop {
+  //   position: absolute;
+  //   top: 0;
+  //   height: 0;
+  //   width: 100%;
+  //   height: 100%;
+  //   z-index: 1;
+
+  //   &__background {
+  //     width: 100%;
+  //     height: 100%;
+  //   }
+  // }
+    
+
 
 </style>
