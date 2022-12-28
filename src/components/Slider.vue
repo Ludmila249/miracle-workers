@@ -1,76 +1,123 @@
 <template>
-  <div class="">
-    <hooper :settings="hooperSettings">
-      <slot></slot>
-      <hooper-navigation slot="hooper-addons"></hooper-navigation>
-      <hooper-pagination slot="hooper-addons" mode="fraction"></hooper-pagination>
-      <!-- <hooper-progress slot="hooper-addons"></hooper-progress> -->
-    </hooper>
+  <div class="slider slider__margins">
+    <div class="slider__pagination-wrap">
+      <div class="slider__pagination">
+        <span>{{ currentPage }}</span>
+        <span>/</span>
+        <span>{{ numberPages }}</span>
+      </div>      
+    </div>
+    <slot></slot>
+    <div class="slider__button-container">
+      <div class="slider__button">
+        <button 
+          class="slider__arrow"
+          @click="handlerClick('prev')"
+        >
+          <img class="slider__arrow-icon slider__arrow-icon--prev" src="@/assets/icons/Arrow.svg" />
+        </button>
+        <button
+          class="slider__arrow"
+          @click="handlerClick('next')"
+        >
+          <img class="slider__arrow-icon" src="@/assets/icons/Arrow.svg" />
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import itemSlider from './itemSlider.vue';
-  import  { 
-    Hooper, 
-    Slide,
-    // Progress as HooperProgress,
-    Pagination as HooperPagination,
-    Navigation as HooperNavigation
-  } 
-  from 'hooper';
   
 export default {
-  components: { 
-    itemSlider,
-    Hooper,
-    Slide,
-    // HooperProgress,
-    HooperPagination,
-    HooperNavigation
+  props: {
+    currentPage: {
+      type: Number,
+      default: 1
+    },
+    numberPages: {
+      type: Number,
+      default: 1
+    }
   },
-
-  data() {
-    return {
-      hooperSettings: {
-        centerMode: true,
-        rewind : true,
-        width  : '100%',
-        autoplay: 5000,
-        type   : 'loop',
-        padding: '20%',
-        pagination: true,
-        arrows: true,
-      },
-    };
-  }
+  
+  methods: {
+    handlerClick(str) {
+      this.$emit('handlerClick', str);
+    }, 
+  },
 }
 
 </script>
 
 <style lang="scss">
-  // .hooper-progress {
-  //   // display: none;
-  // }
-  .hooper {
-    position: relative;
-    height: auto;
+
+.slider {
+  position: absolute;
+  width: 100%;
+  min-height: 500px;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  z-index: 1;
+
+  &__margins {
+    padding-bottom: 100px;
+    padding-top: 200px;
   }
 
-  .hooper-next,
-  .hooper-prev {
-    border: 1px solid #000;
-    border-radius: 50%;
-  }
-
-  .hooper-pagination {
+  &__button-container {
     position: absolute;
-    top: 15px;
+    z-index: 3;
+    width: 100%;
+    top: 57%;
+
+    @media(max-width: 900px) {
+      top: 50%;
+    }
+  }
+
+  &__button {
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+  }
+
+  &__arrow {
+    position: relative;
+    border: 1px solid #333333;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    background-color: inherit;
+    cursor: pointer;    
+  }
+
+  &__arrow-icon {
+    position: absolute;
+    top: 17px;
+    left: 8px;
+    height: 4px;
+
+    &--prev {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__pagination-wrap {
+    position: absolute;
+    top: 21%;
+    width: 100%;
+    z-index: 1; 
+  }
+
+  &__pagination {
     width: 56px;
     height: 56px;
     background-color: #fff;
     border-radius: 50%;
-    padding: 0;
+    margin: 0 auto;
     text-align: center;
     display: flex;
     justify-content: center;
@@ -78,15 +125,8 @@ export default {
     font-family: "kinopoisk-bold";
     font-size: 15px;
     line-height: 18px;
-    text-align: center;
-
     color: #000000;
   }
-
-  .hooper-slide {
-    display: flex;
-    align-items: flex-end;
-    min-height: 418px;
-  }
+}
 
 </style>

@@ -3,26 +3,39 @@
     <button 
       class="header__button"
       type="button"
-      >
+      @click="handlerClick('open')"
+    >
       <span class="header__burger"></span>
     </button>
     <div class="header__logo-wrap">
       <router-link 
         class="header__logo"
-        to="/">
-        <img 
-          src="@/assets/pictures/KinoPoisk HD logo H Dark Grey.svg" 
-          alt=""
+        to="/"
+        >
+        <picture>
+          <source 
+            media="(max-width: 1024px)" 
+            srcset="../assets/icons/kinopoisk.svg"
           >
+          <img 
+            class="header__logo-img"
+            src="@/assets/icons/KinoPoisk HD logo H Dark Grey.svg" 
+            alt="KinoPoisk"
+          >
+        </picture>
       </router-link>
     </div>
 
-    <nav class="header__menu">
+    <nav 
+      class="header__menu" 
+      ref="menu"
+      >
       <ul class="header__menu-list">
         <li class="header__menu-item">
           <p class="header__menu-numbering">01</p>
           <a 
             class="header__menu-link"
+            href="#"
             >
             У Бога новый проект
           </a>
@@ -31,6 +44,7 @@
           <p class="header__menu-numbering">02</p>
           <a 
             class="header__menu-link"
+            href="#"
             >
             Подсказки
           </a>
@@ -39,6 +53,7 @@
           <p class="header__menu-numbering">03</p>
           <a 
             class="header__menu-link"
+            href="#"
             >
             Больше подсказок
           </a>
@@ -47,11 +62,11 @@
           <p class="header__menu-numbering">04</p>
           <a 
             class="header__menu-link"
+            href="#"
             >
             Вопросы и ответы
           </a>
         </li>
-        
       </ul>
     </nav>
   </header>
@@ -59,18 +74,29 @@
 
 <script>
 
+
+export default {
+  methods: {
+    handlerClick(className) {
+      if(this.$refs.menu.classList.contains(className)) {
+        this.$refs.menu.classList.remove(className);
+      } else {
+        this.$refs.menu.classList.add(className);
+      }
+    }
+  },
+}
+
 </script>
-
-
-
-
 
 <style scoped lang="scss">
 
+$--color-yellow-hover: #f2af4a;
   .header {
     position: relative;
     padding-top: 21px;
     padding-bottom: 24px;
+    z-index: 2;
 
     &__button {
       position: absolute;
@@ -122,11 +148,28 @@
       margin: 0 auto;
     }
 
+    &__logo-img {
+      display: flex;
+      margin: 0 auto;
+    }
+
     &__menu {
+      display: none;
       position: absolute;
       top: 178px;
       left: 37px;
       width: 152px;
+    }
+
+    &__menu-link {
+      cursor: pointer;
+      color: #333333;
+      transition: all 0.3s ease;
+
+      &:hover {
+        font-size: 15px;
+        color: $--color-yellow-hover;
+      }
     }
 
     &__menu-item {
@@ -140,7 +183,7 @@
       font-size: 14px;
       line-height: 15px;
       color: #333333;
-      // border-bottom: 1px solid #000;
+      transition: all 0.3s ease;
 
       &::after {
         content: "";
@@ -150,11 +193,21 @@
         height: 1px;
         width: 109px;
         background-color: #000;
+        transition: all 0.3s ease;
       }
-    }
 
-    &__menu-link {
-      cursor: pointer;
+      &:hover {
+        font-size: 15px;
+        color: $--color-yellow-hover;
+        .header__menu-numbering {
+          color: $--color-yellow-hover;
+        }
+
+        &::after {
+          width: 90%;
+          background-color: $--color-yellow-hover;
+        }
+      }
     }
 
     &__menu-numbering {
@@ -165,17 +218,14 @@
       color: #2E332A;
       margin-right: 19.7px;
       align-items: center;
+      transition: all 0.3s ease;
+
     }
 
 
   }
+
+  .open {
+    display: block;
+  }
 </style>
-
-
-<script>
-
-
-export default {
-
-}
-</script>

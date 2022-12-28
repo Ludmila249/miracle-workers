@@ -1,4 +1,3 @@
-import hooper from 'hooper/dist/hooper.css';
 import Vue from 'vue';
 import App from './App.vue';
 import './registerServiceWorker';
@@ -14,7 +13,6 @@ new Vue({
   router,
   store,
   style,
-  hooper,
   render: h => h(App)
 }).$mount('#app')
 
